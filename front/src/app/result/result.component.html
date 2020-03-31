@@ -1,0 +1,52 @@
+<div class="formDiv">
+  <h2>Result Form</h2>
+  <form [formGroup] = "resultForm" (ngSubmit) ="onSubmit()">
+    <div>
+      <label>Result Type* : </label>
+      <mat-radio-group aria-label="Select an option" formControlName="res_type">
+      <mat-radio-button  value="M" >Main (M)</mat-radio-button> &nbsp;
+        <mat-radio-button value="R">Revaluation (R)</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Course</mat-label>
+      <mat-select required formControlName="course">
+        <mat-option value="BE">BE</mat-option>
+        <mat-option value="MCA">MCA</mat-option>
+        <mat-option value="ME">ME</mat-option>
+        <mat-option value="MTECH">M.Tech.</mat-option>
+        <mat-option value="BTECH">B.Tech.</mat-option>
+      </mat-select>
+    </mat-form-field>
+    &nbsp;
+    <mat-form-field appearance="fill">
+      <mat-label>Sem</mat-label>
+      <mat-select required formControlName="sem">
+        <mat-option value="1">1</mat-option>
+        <mat-option value="2">2</mat-option>
+        <mat-option value="3">3</mat-option>
+        <mat-option value="4">4</mat-option>
+        <mat-option value="5">5</mat-option>
+        <mat-option value="6">6</mat-option>
+        <mat-option value="7">7</mat-option>
+        <mat-option value="8">8</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Starting Rollno</mat-label>
+      <input matInput required formControlName="roll_no">
+    </mat-form-field>
+    &nbsp;
+    <mat-form-field appearance="fill">
+      <mat-label>No of results</mat-label>
+      <input matInput required formControlName="no">
+    </mat-form-field>
+    <br>
+    <button type="submit" mat-raised-button [disabled]="resultForm.invalid" color=accent>submit</button>
+  </form>
+</div>
+
+
+<app-result-table *ngIf='parentList.length > 0' [list] = 'parentList' [course] = "resultForm.get('course').value | uppercase" [res_type] = "resultForm.get('res_type').value" [sem] = "resultForm.get('sem').value" ></app-result-table>

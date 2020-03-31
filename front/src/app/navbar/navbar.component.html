@@ -1,0 +1,31 @@
+<mat-toolbar color="primary" class="navbar mat-elevation-z4">
+  <mat-toolbar-row>
+    <span> <img class="logo" routerLink='' src="../../assets/images/Group 1-crop.png" alt="logo"> </span>
+    <span class="spacer"></span>
+
+    <div class="navButtons">
+      <button mat-button routerLink='' color="primary" hide-lg="">home</button>
+      <button mat-button routerLink='about' routerLinkActive='mat-raised-button' color="primary">about</button>
+      <button mat-button routerLink='contact' routerLinkActive='mat-raised-button' color="primary">contact</button>
+      <button mat-stroked-button routerLink='result' routerLinkActive="mat-raised-button" color="accent">Result</button>
+    </div>
+
+    <mat-menu  #appMenu="matMenu">
+      <button mat-menu-item routerLink="">home</button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item routerLink="about">about</button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item routerLink="contact">contact</button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item routerLink="result">result</button>
+
+    </mat-menu>
+
+    <button class="mobileMenu" mat-icon-button [matMenuTriggerFor]="appMenu">
+      <mat-icon color="primary">more_vert</mat-icon>
+    </button>
+
+  </mat-toolbar-row>
+</mat-toolbar>
+
+

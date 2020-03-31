@@ -1,0 +1,44 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.navbar {
+  background-color:white;
+  padding-left:8%;
+  padding-right:8%;
+  button {
+    font-weight: bold;
+    margin-left:10px;
+    letter-spacing: 0.5px;
+  }
+
+  .logo {
+    height: 40px;
+    cursor: pointer;
+  }
+
+}
+
+@media (min-width:768px){
+  .mobileMenu {
+    display: none;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding-left:0px;
+    padding-right:0px;
+
+    .navButtons {
+      display:none;
+    }
+
+    .mobileMenu {
+      display:block;
+    }
+  }
+}
+
+
