@@ -14,11 +14,12 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { ResultComponent } from './result/result.component';
 import { ResultTableComponent } from './result-table/result-table.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import {HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http'
 
 import { ApiService } from './api.service';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ApiService } from './api.service';
     ContactComponent,
     ResultComponent,
     ResultTableComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,8 +1,7 @@
-import { ApiService } from './../api.service';
-import {Component, OnInit, ViewChild, Input} from '@angular/core';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatPaginator} from '@angular/material/paginator';
+import { Component, OnInit, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-result-table',
@@ -10,7 +9,7 @@ import {MatPaginator} from '@angular/material/paginator';
   styleUrls: ['./result-table.component.scss']
 })
 
-export class ResultTableComponent implements OnInit {
+export class ResultTableComponent implements OnChanges {
 
   @Input()
   public course;
@@ -27,12 +26,12 @@ export class ResultTableComponent implements OnInit {
   displayedColumns = ['position', 'name', 'roll_no', 'sgpa', 'res_des', 'status'];
   dataSource;
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnChanges(changes: SimpleChanges) {
     this.dataSource = new MatTableDataSource(this.list);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

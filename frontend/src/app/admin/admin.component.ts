@@ -3,19 +3,24 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-result',
-  templateUrl: './result.component.html',
-  styleUrls: ['./result.component.scss']
+  selector: 'app-admin',
+  templateUrl: './admin.component.html',
+  styleUrls: ['./admin.component.scss']
 })
-export class ResultComponent implements OnInit {
+export class AdminComponent implements OnInit {
 
-  public parentList = [];
-
+  loginForm: FormGroup;
   resultForm: FormGroup;
+
 
   constructor(private fb: FormBuilder, private apiService: ApiService) { }
 
   ngOnInit() {
+    this.loginForm = this.fb.group({
+      username: ['', [Validators.required, Validators.minLength(5)]],
+      password: ['', [Validators.required, Validators.minLength(5)]]
+    });
+
     this.resultForm = this.fb.group({
       res_type: ['M'],
       course: ['BTECH', [Validators.required]],
@@ -23,9 +28,18 @@ export class ResultComponent implements OnInit {
       roll_no: ['0101CS171001', Validators.required],
       no: ['3', [Validators.required, Validators.min(1), Validators.maxLength(3)]]
     });
-    // this.resultForm.valueChanges.subscribe(this.updateCourse);
+
   }
 
+  get password() {
+    return this.loginForm.get('password');
+  }
+
+  get username() {
+    return this.loginForm.get('username');
+  }
+
+  // form 2
   get res_type() {
     return this.resultForm.get('res_type');
   }
@@ -47,13 +61,31 @@ export class ResultComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.apiService.getResult(this.resultForm.value).subscribe(
+    this.apiService.login(this.loginForm.value).subscribe(
       response => {
-        this.parentList = response;
-        // console.log(this.parentList);
+        localStorage.setItem('token', response.token);
+        // console.log(response.token);
       },
       error => console.log('error', error)
     );
+  }
+
+  generate(): void {
+
+    this.apiService.generateResult(this.resultForm.value, this.getToken()).subscribe(
+      response => {
+        console.log('Request Successful');
+      },
+      error => console.log('error', error)
+    );
+  }
+
+  loggedIn() {
+    return !!this.getToken();
+  }
+
+  public getToken() {
+    return localStorage.getItem('token');
   }
 
 }

@@ -1,10 +1,10 @@
 <div class="formDiv">
   <h2>Result Form</h2>
-  <form [formGroup] = "resultForm" (ngSubmit) ="onSubmit()">
+  <form [formGroup]="resultForm" (ngSubmit)="onSubmit()">
     <div>
       <label>Result Type* : </label>
       <mat-radio-group aria-label="Select an option" formControlName="res_type">
-      <mat-radio-button  value="M" >Main (M)</mat-radio-button> &nbsp;
+        <mat-radio-button value="M">Main (M)</mat-radio-button> &nbsp;
         <mat-radio-button value="R">Revaluation (R)</mat-radio-button>
       </mat-radio-group>
     </div>
@@ -44,9 +44,11 @@
       <input matInput required formControlName="no">
     </mat-form-field>
     <br>
-    <button type="submit" mat-raised-button [disabled]="resultForm.invalid" color=accent>submit</button>
+    <button type="submit" mat-stroked-button [disabled]="resultForm.invalid" color=accent>submit</button>
   </form>
 </div>
 
 
-<app-result-table *ngIf='parentList.length > 0' [list] = 'parentList' [course] = "resultForm.get('course').value | uppercase" [res_type] = "resultForm.get('res_type').value" [sem] = "resultForm.get('sem').value" ></app-result-table>
+<app-result-table *ngIf='parentList.length > 0' [list]='parentList'
+  [course]="resultForm.get('course').value | uppercase" [res_type]="resultForm.get('res_type').value"
+  [sem]="resultForm.get('sem').value"></app-result-table>
