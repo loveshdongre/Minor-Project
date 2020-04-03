@@ -5,6 +5,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+# import object_detection_image as od
+import ResultFetcher as rf
 
 
 @api_view(['POST'])
@@ -43,8 +45,13 @@ def StudentView(request):
 @permission_classes((IsAuthenticated, ))
 def Generate(request, format=None):
     data = request.data
+
     
+    # captcha_text = od.Captcha_detection(
+    #     '{}/captcha{}.png'.format('img_download', '0101CS171001'))
+
     content = {
-        'status': 'request was permitted'
+        'status': 'request permitted'
     }
+
     return Response(content)
