@@ -46,7 +46,6 @@ def StudentView(request):
 def Generate(request, format=None):
     data = request.data
 
-    
     # captcha_text = od.Captcha_detection(
     #     '{}/captcha{}.png'.format('img_download', '0101CS171001'))
 
