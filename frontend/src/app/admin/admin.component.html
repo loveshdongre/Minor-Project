@@ -17,7 +17,14 @@
 </div>
 
 <ng-template #GenerateForm>
+
     <div class="formDiv">
+
+        <!-- logout button -->
+        <div style="text-align: right;">
+            <button type="submit" mat-stroked-button color=accent (click)="logout()">Logout</button>
+        </div>
+
         <h2>Add Result</h2>
         <form [formGroup]="resultForm" (ngSubmit)="generate()">
             <div>
@@ -63,7 +70,8 @@
                 <input matInput required formControlName="no">
             </mat-form-field>
             <br>
-            <button type="submit" mat-stroked-button [disabled]="resultForm.invalid" color=accent>submit</button>
+            <button type="submit" mat-stroked-button [disabled]="!free" [disabled]="resultForm.invalid"
+                color=accent>submit</button>
         </form>
     </div>
 </ng-template>

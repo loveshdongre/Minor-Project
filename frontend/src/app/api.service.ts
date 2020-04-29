@@ -7,25 +7,32 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export class ApiService {
 
-  result_url = 'http://localhost:8000/app/students/';
+  resultUrl = 'http://localhost:8000/app/students/';
 
-  login_url = 'http://localhost:8000/app/login/';
+  loginUrl = 'http://localhost:8000/app/login/';
 
-  generate_url = 'http://localhost:8000/app/generate/';
+  generateUrl = 'http://localhost:8000/app/generate/';
+
+  logoutUrl = 'http://localhost:8000/app/logout/';
 
   constructor(private http: HttpClient) { }
 
   getResult(reqData) {
-    return this.http.post<any>(this.result_url, reqData);
+    return this.http.post<any>(this.resultUrl, reqData);
   }
 
   login(reqData) {
-    return this.http.post<any>(this.login_url, reqData);
+    return this.http.post<any>(this.loginUrl, reqData);
   }
 
   generateResult(reqData, token) {
     const headers = new HttpHeaders().set('Authorization', `token ${token}`);
-    return this.http.post<any>(this.generate_url, reqData, { headers });
+    return this.http.post<any>(this.generateUrl, reqData, { headers });
+  }
+
+  logout(token) {
+    const headers = new HttpHeaders().set('Authorization', `token ${token}`);
+    return this.http.get<any>(this.logoutUrl, { headers });
   }
 
 }

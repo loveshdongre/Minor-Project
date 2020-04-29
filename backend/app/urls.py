@@ -12,4 +12,5 @@ urlpatterns = [
     path('students/', views.StudentView, name = 'StudentView'),
     path('login/', ObtainAuthToken.as_view()),
     path('generate/', views.Generate, name = 'Generate'),
+    path('logout/', views.Logout, name = 'Logout')
 ]

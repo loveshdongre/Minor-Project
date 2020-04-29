@@ -12,6 +12,7 @@ export class ResultComponent implements OnInit {
   public parentList = [];
 
   resultForm: FormGroup;
+  free = true;
 
   constructor(private fb: FormBuilder, private apiService: ApiService) { }
 
@@ -47,12 +48,18 @@ export class ResultComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.free = false;
     this.apiService.getResult(this.resultForm.value).subscribe(
       response => {
         this.parentList = response;
         // console.log(this.parentList);
+        this.free = true;
+
       },
-      error => console.log('error', error)
+      error => {
+        console.log('error', error);
+        this.free = true;
+      }
     );
   }
 

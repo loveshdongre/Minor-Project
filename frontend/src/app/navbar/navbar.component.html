@@ -4,9 +4,11 @@
     <span class="spacer"></span>
 
     <div class="navButtons">
-      <button mat-button routerLink='' color="primary" hide-lg="">home</button>
-      <button mat-button routerLink='about' routerLinkActive='mat-raised-button' color="primary">about</button>
-      <button mat-button routerLink='contact' routerLinkActive='mat-raised-button' color="primary">contact</button>
+      <button mat-button routerLink='' color="primary" hide-lg="">
+        <mat-icon>home</mat-icon>
+      </button>
+      <!-- <button mat-button routerLink='about' routerLinkActive='mat-raised-button' color="primary">about</button>
+      <button mat-button routerLink='contact' routerLinkActive='mat-raised-button' color="primary">contact</button> -->
       <button mat-button routerLink='result' routerLinkActive='mat-raised-button' color="primary">result</button>
       <button mat-stroked-button routerLink='admin' routerLinkActive="mat-raised-button" color="accent">admin</button>
     </div>
@@ -14,12 +16,13 @@
     <mat-menu #appMenu="matMenu">
       <button mat-menu-item routerLink="">home</button>
       <mat-divider></mat-divider>
-      <button mat-menu-item routerLink="about">about</button>
+      <!-- <button mat-menu-item routerLink="about">about</button>
       <mat-divider></mat-divider>
       <button mat-menu-item routerLink="contact">contact</button>
-      <mat-divider></mat-divider>
+      <mat-divider></mat-divider> -->
       <button mat-menu-item routerLink="result">result</button>
-
+      <mat-divider></mat-divider>
+      <button mat-menu-item routerLink='admin'>admin</button>
     </mat-menu>
 
     <button class="mobileMenu" mat-icon-button [matMenuTriggerFor]="appMenu">

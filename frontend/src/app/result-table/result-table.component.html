@@ -1,6 +1,17 @@
 <div class="resultTable">
 
-  <mat-grid-list cols=3 rowHeight=40px style="margin-top:10px" >
+  <div style="text-align:right">
+    <mat-form-field>
+      <mat-label>Download</mat-label>
+      <mat-select>
+        <mat-option value="1" (click)="downloadCSV()">
+          CSV</mat-option>
+        <mat-option value="2" (click)="downloadPDF()">PDF</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <mat-grid-list cols=3 rowHeight=80px style="margin-top:10px">
     <mat-grid-tile>
       <h3 class="mat-subheading-2">Course: {{course}} </h3>
     </mat-grid-tile>
@@ -18,7 +29,7 @@
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Ethan">
   </mat-form-field>
 
-  <table mat-table [dataSource]="dataSource" matSort >
+  <table style="overflow-x: scroll;width:100%" mat-table [dataSource]="dataSource" matSort>
 
     <!-- Position Column -->
     <ng-container matColumnDef="position">

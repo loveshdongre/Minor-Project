@@ -1,19 +1,22 @@
 import { ApiService } from './../api.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss']
+  styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent implements OnInit {
 
   loginForm: FormGroup;
   resultForm: FormGroup;
+  free = true;
 
 
-  constructor(private fb: FormBuilder, private apiService: ApiService) { }
+  constructor(private fb: FormBuilder, private apiService: ApiService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -61,6 +64,7 @@ export class AdminComponent implements OnInit {
   }
 
   onSubmit(): void {
+
     this.apiService.login(this.loginForm.value).subscribe(
       response => {
         localStorage.setItem('token', response.token);
@@ -71,12 +75,17 @@ export class AdminComponent implements OnInit {
   }
 
   generate(): void {
-
+    this.openDialog();
+    this.free = false;
     this.apiService.generateResult(this.resultForm.value, this.getToken()).subscribe(
       response => {
         console.log('Request Successful');
+        this.free = true;
       },
-      error => console.log('error', error)
+      error => {
+        console.log('error', error)
+        this.free = true;
+      }
     );
   }
 
@@ -86,6 +95,29 @@ export class AdminComponent implements OnInit {
 
   public getToken() {
     return localStorage.getItem('token');
+  }
+
+  public removeToken() {
+    return localStorage.removeItem('token');
+  }
+
+  logout(): void {
+
+    this.apiService.logout(this.getToken()).subscribe(
+      response => {
+        this.removeToken();
+        console.log('logout');
+      },
+      error => {
+        console.log('logout failed');
+      }
+    );
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '250px'
+    });
   }
 
 }

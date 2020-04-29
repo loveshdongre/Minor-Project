@@ -20,6 +20,8 @@ import { HttpClientModule } from '@angular/common/http'
 
 import { ApiService } from './api.service';
 import { AdminComponent } from './admin/admin.component';
+import { DialogComponent } from './dialog/dialog.component';
+import { CsvDataService } from './csv-data.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { AdminComponent } from './admin/admin.component';
     ResultComponent,
     ResultTableComponent,
     AdminComponent,
+    DialogComponent,
   ],
+  entryComponents: [DialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -40,9 +44,9 @@ import { AdminComponent } from './admin/admin.component';
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [ApiService], // registering api service
-  bootstrap: [AppComponent]
+  providers: [ApiService, CsvDataService], // registering service
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

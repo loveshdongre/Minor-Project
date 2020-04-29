@@ -5,8 +5,10 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from django.contrib import auth
+
 # import object_detection_image as od
-import ResultFetcher as rf
+from app.ResultFetcher import generate_result
 
 
 @api_view(['POST'])
@@ -28,9 +30,9 @@ def StudentView(request):
         if stud.count() > 0:
             result = Result.objects.filter(
                 student__exact=stud[0].id, sem__exact=data['sem'], res_type__exact=data['res_type'])
-            if result != None:
+            if result.count() != 0:
                 resType = ResType(
-                    position, stud[0].roll_no, stud[0].name, result[0].sgpa, result[0].res_des, result[0].status)
+                    position, stud[0].name, stud[0].roll_no, result[0].sgpa, result[0].res_des, result[0].status)
                 position = position + 1
                 list.append(resType)
 
@@ -48,9 +50,19 @@ def Generate(request, format=None):
 
     # captcha_text = od.Captcha_detection(
     #     '{}/captcha{}.png'.format('img_download', '0101CS171001'))
+    generate_result(data['res_type'], data['course'], data['sem'], data['roll_no'], data['no'])
 
     content = {
         'status': 'request permitted'
     }
 
+    return Response(content)
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
+def Logout(request, format=None):
+    auth.logout(request)
+    content = {
+        'status': 'logout successful'
+    }
     return Response(content)

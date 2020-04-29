@@ -44,7 +44,8 @@
       <input matInput required formControlName="no">
     </mat-form-field>
     <br>
-    <button type="submit" mat-stroked-button [disabled]="resultForm.invalid" color=accent>submit</button>
+    <button type="submit" mat-stroked-button [disabled]="!free" [disabled]="resultForm.invalid"
+      color=accent>submit</button>
   </form>
 </div>
 

@@ -2,7 +2,9 @@ import { Component, OnInit, ViewChild, Input, OnChanges, SimpleChanges } from '@
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-
+import * as jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import { CsvDataService } from '../csv-data.service';
 @Component({
   selector: 'app-result-table',
   templateUrl: './result-table.component.html',
@@ -23,7 +25,7 @@ export class ResultTableComponent implements OnChanges {
   @Input()
   public list = [];
 
-  displayedColumns = ['position', 'name', 'roll_no', 'sgpa', 'res_des', 'status'];
+  displayedColumns = ['position', 'roll_no', 'name', 'sgpa', 'res_des', 'status'];
   dataSource;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -37,7 +39,6 @@ export class ResultTableComponent implements OnChanges {
     this.dataSource.sort = this.sort;
   }
 
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -45,6 +46,30 @@ export class ResultTableComponent implements OnChanges {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  downloadCSV() {
+    CsvDataService.exportToCsv(`result-${this.course}-${this.sem}-${this.res_type}.csv`, this.dataSource.filteredData);
+  }
+
+  downloadPDF() {
+
+    console.log(this.dataSource);
+    let data = [];
+    this.dataSource.filteredData.forEach(obj => {
+      let arr = [];
+      this.displayedColumns.forEach(col => {
+        arr.push(obj[col]);
+      });
+      data.push(arr);
+    });
+
+    const doc = new jsPDF();
+    doc.autoTable({
+      head: [this.displayedColumns],
+      body: data
+    });
+    doc.save(`result-${this.course}-${this.sem}-${this.res_type}.pdf`);
   }
 
 }

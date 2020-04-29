@@ -15,7 +15,8 @@ import {
   MatTableModule,
   MatSortModule,
   MatPaginatorModule,
-  MatGridListModule
+  MatGridListModule,
+  MatDialogModule
 } from '@angular/material';
 
 const material = [
@@ -33,11 +34,12 @@ const material = [
   MatTableModule,
   MatSortModule,
   MatPaginatorModule,
-  MatGridListModule
+  MatGridListModule,
+  MatDialogModule
 ];
 
 @NgModule({
   imports: [material],
   exports: [material]
 })
-export class MaterialModule {}
+export class MaterialModule { }
