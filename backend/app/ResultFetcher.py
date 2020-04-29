@@ -58,6 +58,7 @@ url = 'http://www.uitrgpv.ac.in/Exam/ProgramSelect.aspx'
 # keep_alive = False
 headless = False
 
+
 class Student_Local:
     name = ''
     rollno = ''
@@ -94,12 +95,12 @@ def write_row(stud):
     # no = 3
 
 def generate_result(_res_type, _course, _sem, _roll_no, _no):
-    
+
     chrome_options = Options()
-    
+
     if headless:
         chrome_options.add_argument("--headless")
-    
+
     # remove popups
     chrome_options.add_argument('--ignore-certificate-errors')
     chrome_options.add_argument('--ignore-ssl-errors')
@@ -109,7 +110,8 @@ def generate_result(_res_type, _course, _sem, _roll_no, _no):
     os.environ['webdriver.chrome.driver'] = chrome_driver
 
     # driver = webdriver.Chrome(chrome_driver, keep_alive=keep_alive, chrome_options=chrome_options)
-    driver = webdriver.Chrome(executable_path=chrome_driver, chrome_options=chrome_options)
+    driver = webdriver.Chrome(
+        executable_path=chrome_driver, chrome_options=chrome_options)
     driver.get(url)
 
     course_xpath = ''
@@ -124,7 +126,9 @@ def generate_result(_res_type, _course, _sem, _roll_no, _no):
     count = 0
     cur_roll_no = _roll_no
     roll_no_part1 = cur_roll_no[0:6]
+
     while count < int(_no):
+
         count = count + 1
         captcha_decoded = False
         # find cur_roll_no exist in Student
@@ -134,7 +138,8 @@ def generate_result(_res_type, _course, _sem, _roll_no, _no):
         # if cur_roll_no don't exist in student
         if stud.count() == 0:
             # create a student
-            stud = Student(name="ENROLLMENT DON'T EXIST", roll_no=cur_roll_no, course=_course)
+            stud = Student(name="ENROLLMENT DON'T EXIST",
+                           roll_no=cur_roll_no, course=_course)
             stud.save()
         else:
             stud = stud[0]
@@ -175,10 +180,17 @@ def generate_result(_res_type, _course, _sem, _roll_no, _no):
                     submit.click()
 
                 except:
-                    reset = driver.find_element_by_xpath(reset_xpath)
-                    if reset:
-                        reset.click()
-                    captcha_decoded = True
+                    # switch back to old window
+                    driver.switch_to.window(driver.window_handles[0])
+
+                    try:
+                        reset = driver.find_element_by_xpath(reset_xpath)
+                        if reset:
+                            reset.click()
+                        captcha_decoded = True
+                    except:
+                        # switch back to old window
+                        driver.switch_to.window(driver.window_handles[0])
 
                 try:
                     student = Student_Local()
@@ -187,7 +199,7 @@ def generate_result(_res_type, _course, _sem, _roll_no, _no):
 
                     st_name = driver.find_element_by_xpath(st_name_xpath)
                     student.name = st_name.text if st_name.text is not None else ''
-                    
+
                     st_rollno = driver.find_element_by_xpath(
                         st_rollno_xpath)
                     student.rollno = st_rollno.text if st_rollno.text is not None else ''
@@ -215,7 +227,8 @@ def generate_result(_res_type, _course, _sem, _roll_no, _no):
                     # save student in Student & Result
                     stud.name = student.name
                     stud.save()
-                    res = Result(student=stud, sem= _sem, branch=student.branch, status= student.status, res_des=student.res_des, sgpa=student.sgpa, res_type= _res_type)
+                    res = Result(student=stud, sem=_sem, branch=student.branch, status=student.status,
+                                 res_des=student.res_des, sgpa=student.sgpa, res_type=_res_type)
                     res.save()
                     captcha_decoded = True
 
@@ -225,6 +238,8 @@ def generate_result(_res_type, _course, _sem, _roll_no, _no):
                     reset.click()
 
                 except:
+                    # switch back to old window
+                    driver.switch_to.window(driver.window_handles[0])
                     pass
 
         cur_roll_no = roll_no_part1 + str(int(cur_roll_no[6:]) + 1)
@@ -232,6 +247,8 @@ def generate_result(_res_type, _course, _sem, _roll_no, _no):
 
 # launch instance of firefox
 # binary = FirefoxBinary('/etc/firefox/firefox') # for linux
+
+
 def find_result(COURSE, CLG_CODE, BRANCH, ROLL_START, ROLL_END, SEM, IMG_DLD):
     driver = webdriver.Chrome(chrome_driver)
     driver.get(url)
