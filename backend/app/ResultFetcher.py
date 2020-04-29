@@ -101,10 +101,11 @@ def generate_result(_res_type, _course, _sem, _roll_no, _no):
     if headless:
         chrome_options.add_argument("--headless")
 
-    # remove popups
+    # remove
     chrome_options.add_argument('--ignore-certificate-errors')
     chrome_options.add_argument('--ignore-ssl-errors')
-    chrome_options.add_argument('--disable-extensions')
+    # chrome_options.add_argument('--disable-extensions')
+
     dir_path = os.path.dirname(os.path.realpath(__file__))
     chrome_driver = dir_path + "/chromedriver"
     os.environ['webdriver.chrome.driver'] = chrome_driver
@@ -162,11 +163,16 @@ def generate_result(_res_type, _course, _sem, _roll_no, _no):
                     captcha = driver.find_element_by_xpath(captcha_xpath)
 
                     captcha_src = captcha.get_attribute('src')
-                    urllib.request.urlretrieve(
-                        captcha_src, '{}/captcha'.format(IMG_DLD) + cur_roll_no + '.png')
 
-                    captcha_text = od.Captcha_detection(
-                        '{}/captcha{}.png'.format(IMG_DLD, cur_roll_no))
+                    img_name = '{}/captcha{}.png'.format(IMG_DLD, cur_roll_no)
+
+                    urllib.request.urlretrieve(
+                        captcha_src, img_name)
+
+                    captcha_text = od.Captcha_detection(img_name)
+
+                    # delete img after use
+                    os.remove(img_name)
 
                     captcha_text = captcha_text if captcha_text is not None else 'EMPTY'
                     print(captcha_text)
