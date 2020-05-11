@@ -3,12 +3,13 @@
 }
 
 .navbar {
-  background-color:white;
-  padding-left:8%;
-  padding-right:8%;
+  background-color: white;
+  padding-left: 8%;
+  padding-right: 8%;
+
   button {
     font-weight: bold;
-    margin-left:10px;
+    margin-left: 10px;
     letter-spacing: 0.5px;
   }
 
@@ -19,7 +20,7 @@
 
 }
 
-@media (min-width:768px){
+@media (min-width:768px) {
   .mobileMenu {
     display: none;
   }
@@ -28,17 +29,15 @@
 
 @media (max-width: 768px) {
   .navbar {
-    padding-left:0px;
-    padding-right:0px;
+    padding-left: 0px;
+    padding-right: 0px;
 
     .navButtons {
-      display:none;
+      display: none;
     }
 
     .mobileMenu {
-      display:block;
+      display: block;
     }
   }
 }
-
-

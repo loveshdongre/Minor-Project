@@ -16,11 +16,16 @@
 
 .tag {
   max-width: 520px;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: bold;
-  text-shadow: 2px 2px 10px black;
   letter-spacing: 1px;
-  color: rgb(255, 255, 255);
+  color: rgb(48, 48, 48);
+
   margin: 0 auto;
   text-align: center;
+  border-radius: 1rem;
+  background-color: rgba(255, 255, 255, 0.315);
+  text-align: center;
+  padding: 20px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 }
