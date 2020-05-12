@@ -125,7 +125,7 @@ def generate_result(_res_type, _course, _sem, _roll_no, _no):
     course.click()
 
     count = 0
-    cur_roll_no = _roll_no
+    cur_roll_no = _roll_no.upper()
     roll_no_part1 = cur_roll_no[0:6]
 
     while count < int(_no):
@@ -183,6 +183,10 @@ def generate_result(_res_type, _course, _sem, _roll_no, _no):
 
                     # click submit button
                     submit = driver.find_element_by_xpath(submit_xpath)
+                    
+                    #wait for 1 seconds
+                    time.sleep(1)
+
                     submit.click()
 
                 except:
@@ -248,7 +252,7 @@ def generate_result(_res_type, _course, _sem, _roll_no, _no):
                     driver.switch_to.window(driver.window_handles[0])
                     pass
 
-        cur_roll_no = roll_no_part1 + str(int(cur_roll_no[6:]) + 1)
+        cur_roll_no = roll_no_part1 + str(int(cur_roll_no[6:]) + 1).upper()
     driver.quit()
 
 # launch instance of firefox

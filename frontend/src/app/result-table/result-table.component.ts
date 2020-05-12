@@ -28,15 +28,59 @@ export class ResultTableComponent implements OnChanges {
   displayedColumns = ['position', 'roll_no', 'name', 'sgpa', 'res_des', 'status'];
   dataSource;
 
+  public passLabels = ['PASS', 'GRACE', 'FAIL'];
+  public passData = [
+    { data: [65, 49, 32], label: 'SGPA' }
+  ];
+  public passType = 'pie';
+
+  public sgpaLabels = ['0 - 1', '1 - 2', '2 - 3', '3 - 4', '4 - 5', '5 - 6', '6 - 7', '7 - 8', '8 - 9', '9 - 10'];
+  public sgpaData = [
+    { data: [65, 49, 32, 32, 75, 90], label: 'SGPA' }
+  ];
+  public sgpaType = 'bar';
+
+
+
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor() { }
+  constructor() {
+    this.updateData();
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     this.dataSource = new MatTableDataSource(this.list);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
+    this.updateData();
+  }
+
+  updateData() {
+    let pass = 0, fail = 0, grace = 0;
+    let sgpa = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    this.list.forEach(e => {
+      if (e.res_des.includes('GRACE')) {
+        grace++;
+      } else if (e.res_des.includes('Fail')) {
+        fail++;
+      } else {
+        pass++;
+      }
+
+      sgpa[Math.floor(e.sgpa)]++;
+
+    });
+
+    this.passData = [
+      { data: [pass, grace, fail], label: '' }
+    ];
+
+    this.sgpaData = [
+      { data: sgpa, label: 'SGPA COUNT' }
+    ];
+
   }
 
   applyFilter(event: Event) {
@@ -53,8 +97,6 @@ export class ResultTableComponent implements OnChanges {
   }
 
   downloadPDF() {
-
-    console.log(this.dataSource);
     let data = [];
     this.dataSource.filteredData.forEach(obj => {
       let arr = [];

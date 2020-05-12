@@ -16,12 +16,15 @@ import { ResultComponent } from './result/result.component';
 import { ResultTableComponent } from './result-table/result-table.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
 
 import { ApiService } from './api.service';
 import { AdminComponent } from './admin/admin.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { CsvDataService } from './csv-data.service';
+import { ChartsComponent } from './charts/charts.component';
+
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,7 @@ import { CsvDataService } from './csv-data.service';
     ResultTableComponent,
     AdminComponent,
     DialogComponent,
+    ChartsComponent,
   ],
   entryComponents: [DialogComponent],
   imports: [
@@ -45,7 +49,9 @@ import { CsvDataService } from './csv-data.service';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    ChartsModule
   ],
+  schemas: [],
   providers: [ApiService, CsvDataService], // registering service
   bootstrap: [AppComponent],
 })

@@ -19,7 +19,7 @@ def StudentView(request):
     list = []
     count = 0
     position = 1
-    cur_roll_no = data['roll_no']
+    cur_roll_no = data['roll_no'].upper()
     roll_no_part1 = cur_roll_no[0:6]
     while count < no:
         count = count + 1
@@ -36,7 +36,7 @@ def StudentView(request):
                 position = position + 1
                 list.append(resType)
 
-        cur_roll_no = roll_no_part1 + str(int(cur_roll_no[6:]) + 1)
+        cur_roll_no = roll_no_part1 + str(int(cur_roll_no[6:]) + 1).upper()
 
     serializer = ResTypeSerializer(list, many=True)
 
@@ -50,13 +50,15 @@ def Generate(request, format=None):
 
     # captcha_text = od.Captcha_detection(
     #     '{}/captcha{}.png'.format('img_download', '0101CS171001'))
-    generate_result(data['res_type'], data['course'], data['sem'], data['roll_no'], data['no'])
+    generate_result(data['res_type'], data['course'],
+                    data['sem'], data['roll_no'], data['no'])
 
     content = {
         'status': 'request permitted'
     }
 
     return Response(content)
+
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated, ))

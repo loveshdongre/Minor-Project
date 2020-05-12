@@ -11,7 +11,7 @@
     </mat-form-field>
   </div>
 
-  <mat-grid-list cols=3 rowHeight=80px style="margin-top:10px">
+  <mat-grid-list cols=3 rowHeight=80px>
     <mat-grid-tile>
       <h3 class="mat-subheading-2">Course: {{course}} </h3>
     </mat-grid-tile>
@@ -26,7 +26,7 @@
 
   <mat-form-field style="margin-left:10px">
     <mat-label>Search</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Ethan">
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Ross">
   </mat-form-field>
 
   <table style="overflow-x: scroll;width:100%" mat-table [dataSource]="dataSource" matSort>
@@ -71,4 +71,14 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
   <mat-paginator [pageSizeOptions]="[10, 25, 75, 100]"></mat-paginator>
+</div>
+
+<script src="./../../../node_modules/chart.js/dist/Chart.js"></script>
+
+<div class="chartsParent">
+  <app-charts [labels]='sgpaLabels' [data]='sgpaData' [chartType]='sgpaType'>
+  </app-charts>
+
+  <app-charts [labels]='passLabels' [data]='passData' [chartType]='passType'>
+  </app-charts>
 </div>
