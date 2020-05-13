@@ -30,11 +30,13 @@ class ResType(models.Model):
     sgpa = models.DecimalField(max_digits=5, decimal_places=2)
     res_des = models.CharField(max_length=20)
     status = models.CharField(max_length=10)
+    branch = models.CharField(max_length=10)
 
-    def __init__(self, position, name, roll_no, sgpa, res_des, status):
+    def __init__(self, position, name, roll_no, sgpa, res_des, status, branch):
         self.position = position
         self.roll_no = roll_no
         self.name = name
         self.sgpa = sgpa
         self.res_des = res_des
         self.status = status
+        self.branch = branch

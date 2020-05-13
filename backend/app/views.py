@@ -32,7 +32,7 @@ def StudentView(request):
                 student__exact=stud[0].id, sem__exact=data['sem'], res_type__exact=data['res_type'])
             if result.count() != 0:
                 resType = ResType(
-                    position, stud[0].name, stud[0].roll_no, result[0].sgpa, result[0].res_des, result[0].status)
+                    position, stud[0].name, stud[0].roll_no, result[0].sgpa, result[0].res_des, result[0].status, result[0].branch)
                 position = position + 1
                 list.append(resType)
 

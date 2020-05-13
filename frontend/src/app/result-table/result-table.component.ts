@@ -25,18 +25,18 @@ export class ResultTableComponent implements OnChanges {
   @Input()
   public list = [];
 
-  displayedColumns = ['position', 'roll_no', 'name', 'sgpa', 'res_des', 'status'];
+  displayedColumns = ['position', 'roll_no', 'branch', 'name', 'sgpa', 'res_des', 'status'];
   dataSource;
 
   public passLabels = ['PASS', 'GRACE', 'FAIL'];
   public passData = [
-    { data: [65, 49, 32], label: 'SGPA' }
+    { data: [65, 49, 32], label: '', backgroundColor: [], }
   ];
   public passType = 'pie';
 
   public sgpaLabels = ['0 - 1', '1 - 2', '2 - 3', '3 - 4', '4 - 5', '5 - 6', '6 - 7', '7 - 8', '8 - 9', '9 - 10'];
   public sgpaData = [
-    { data: [65, 49, 32, 32, 75, 90], label: 'SGPA' }
+    { data: [65, 49, 32], label: '', backgroundColor: [], }
   ];
   public sgpaType = 'bar';
 
@@ -74,11 +74,35 @@ export class ResultTableComponent implements OnChanges {
     });
 
     this.passData = [
-      { data: [pass, grace, fail], label: '' }
+      {
+        data: [pass, grace, fail],
+        label: '',
+        backgroundColor: [
+          'rgba(255, 64, 129, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)'
+        ],
+      }
     ];
 
     this.sgpaData = [
-      { data: sgpa, label: 'SGPA COUNT' }
+      {
+        backgroundColor: [
+          'rgba(255, 64, 129, 1)',
+          'rgba(255, 64, 129, 1)',
+          'rgba(255, 64, 129, 1)',
+          'rgba(255, 64, 129, 1)',
+          'rgba(255, 64, 129, 1)',
+          'rgba(255, 64, 129, 1)',
+          'rgba(255, 64, 129, 1)',
+          'rgba(255, 64, 129, 1)',
+          'rgba(255, 64, 129, 1)',
+          'rgba(255, 64, 129, 1)',
+        ],
+        data: sgpa,
+        label: 'SGPA COUNT',
+
+      }
     ];
 
   }
