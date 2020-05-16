@@ -29,6 +29,7 @@ export class ResultTableComponent implements OnChanges {
   dataSource;
 
   public passLabels = ['PASS', 'GRACE', 'FAIL'];
+
   public passData = [
     { data: [65, 49, 32], label: '', backgroundColor: [], }
   ];
@@ -38,7 +39,7 @@ export class ResultTableComponent implements OnChanges {
   public sgpaData = [
     { data: [65, 49, 32], label: '', backgroundColor: [], }
   ];
-  public sgpaType = 'bar';
+  public sgpaType = 'line';
 
 
 
@@ -73,6 +74,8 @@ export class ResultTableComponent implements OnChanges {
 
     });
 
+    let sum = 100 / (pass + grace + fail);
+    this.passLabels = ['PASS (' + (sum * pass).toFixed(2) + '%)', 'GRACE (' + (sum * grace).toFixed(2) + '%)', 'FAIL (' + (sum * fail).toFixed(2) + '%)'];
     this.passData = [
       {
         data: [pass, grace, fail],
@@ -84,6 +87,17 @@ export class ResultTableComponent implements OnChanges {
         ],
       }
     ];
+
+
+    // let sgpaSum = 0;
+
+    // for (let i = 0; i < sgpa.length; i++) {
+    //   sgpaSum = sgpaSum + sgpa[i];
+    // }
+
+    // for (let i = 0; i < this.sgpaLabels.length; i++) {
+    //   this.sgpaLabels[i] = this.sgpaLabels[i] + Number(sgpa[i] * 100 / Number(sgpaSum));
+    // }
 
     this.sgpaData = [
       {
@@ -101,7 +115,6 @@ export class ResultTableComponent implements OnChanges {
         ],
         data: sgpa,
         label: 'SGPA COUNT',
-
       }
     ];
 
