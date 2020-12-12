@@ -185,7 +185,7 @@ def generate_result(_res_type, _course, _sem, _roll_no, _no):
                     submit = driver.find_element_by_xpath(submit_xpath)
                     
                     #wait for 1 seconds
-                    time.sleep(2) # 0.6
+                    time.sleep(4) # 0.6
 
                     submit.click()
 
