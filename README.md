@@ -28,3 +28,5 @@ It also provides additional functionalities like filtering and sorting the data 
 * Tensorflow
 * Selenium
 * Django
+* Angular
+* ImgLabel
